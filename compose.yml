@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: container/Dockerfile
+    restart: always
+    networks:
+      - external_network
+    volumes:
+      - savedir:/palworld/Pal/Saved/SavedGames
+    ports:
+      - 8211:8211/udp
+    environment:
+        - PORT=8211
+        - PLAYERS=16
+networks:
+  external_network:
+
+volumes:
+  savedir:
