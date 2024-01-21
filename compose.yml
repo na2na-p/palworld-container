@@ -1,20 +1,20 @@
 services:
-  app:
+  palworld:
     build:
       context: .
       dockerfile: container/Dockerfile
-    restart: always
-    networks:
-      - external_network
+    restart: no
+    tty: true
+    mem_reservation: 8g
+    network_mode: bridge
     volumes:
       - savedir:/palworld/Pal/Saved/SavedGames
+      - ./PalWorldSettings.ini:/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini:ro
     ports:
       - 8211:8211/udp
     environment:
-        - PORT=8211
-        - PLAYERS=16
-networks:
-  external_network:
+        - COMMUNITY_SERVER=false
+        - MULTI_THREAD=true
 
 volumes:
   savedir:
